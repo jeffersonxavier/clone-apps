@@ -10,7 +10,7 @@ const Header = () => {
         <Image source={Logo} />
         <Text style={styles.title}>Jefferson</Text>
       </View>
-      <MaterialIcons name="keyboard-arrow-down" size={25} color="#ccc" />
+      <MaterialIcons name="keyboard-arrow-down" size={25} color="#AAAAAA" />
     </View>
   );
 }
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 18,
+    fontSize: 20,
     color: '#FFF',
     fontWeight: 'bold',
     marginLeft: 8,
