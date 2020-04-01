@@ -1,9 +1,11 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import Header from '../components/Header';
 
 const Main = () => {
   return (
     <View style={styles.container}>
+      <Header/>
     </View>
   );
 }
