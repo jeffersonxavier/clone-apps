@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     paddingTop: 40,
-    paddingBottom: 30,
+    paddingBottom: 20,
   },
 
   top: {
@@ -33,10 +33,6 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontWeight: 'bold',
     marginLeft: 8,
-  },
-
-  icon: {
-
   },
 });
 

@@ -11,7 +11,7 @@ const Icon = ({ checked }) => (
   />
 );
 
-const ContentFooter = () => {
+const ScreenIndicator = () => {
   return (
     <View style={styles.icons}>
       <Icon/>
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   icons: {
     flexDirection: 'row',
     justifyContent: 'center',
-    paddingTop: 10,
+    marginBottom: 20,
   },
 
   iconItem: {
@@ -33,4 +33,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ContentFooter;
+export default ScreenIndicator;

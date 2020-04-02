@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, ScrollView, Text, Animated } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import ScreenIndicator from '../components/ScreenIndicator';
 
 const TabItem = ({ icon, title }) => (
   <View style={styles.tabItem}>
@@ -20,6 +21,7 @@ const Tabs = ({ translateY }) => {
         }),
       },
     ]}>
+      <ScreenIndicator />
       <ScrollView
         horizontal={true}
         showsHorizontalScrollIndicator={false}
@@ -38,8 +40,9 @@ const Tabs = ({ translateY }) => {
 
 const styles = StyleSheet.create({
   tabs: {
-    height: 100,
-    marginVertical: 20,
+    height: 130,
+    marginTop: 10,
+    marginBottom: 20,
   },
 
   tabsContainer: {
