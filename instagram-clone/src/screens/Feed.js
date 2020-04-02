@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { View, StyleSheet, FlatList } from 'react-native'
 import Post from '../components/Post';
 import Loading from '../components/Loading';
@@ -9,6 +9,7 @@ const Feed = () => {
   const [ totalPages, setTotalPages ] = useState(1);
   const [ loading, setLoading ] = useState(false);
   const [ refreshing, setRefreshing ] = useState(false);
+  const [ viewable, setViewable ] = useState([]);
 
   useEffect(() => {
     loadPage();
@@ -38,19 +39,25 @@ const Feed = () => {
     setRefreshing(false);
   }
 
+  const handleViewableChanged = useCallback(({ changed }) => {
+    setViewable(changed.map(({ item}) => item.id));
+  }, []);
+
   return (
     <View style={styles.container}>
       <FlatList
         data={feed}
         keyExtractor={post => String(post.id)}
         renderItem={({ item }) => (
-          <Post item={item}/>
+          <Post item={item} shouldLoad={viewable.includes(item.id)}/>
         )}
         onEndReached={() => loadPage()}
         onEndReachedThreshold={0.1}
         ListFooterComponent={loading && <Loading />}
         onRefresh={refreshList}
         refreshing={refreshing}
+        onViewableItemsChanged={handleViewableChanged}
+        viewabilityConfig={{ viewAreaCoveragePercentThreshold: 20 }}
       />
     </View>
   );

@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, Image, Text } from 'react-native';
+import LazyImage from './LazyImage';
 
-const Post = ({ item }) => {
+const Post = ({ item, shouldLoad }) => {
   return (
     <View style={styles.post}>
       <View style={styles.header}>
@@ -9,7 +10,12 @@ const Post = ({ item }) => {
         <Text style={styles.name}>{item.author.name}</Text>
       </View>
 
-      <Image source={{ uri: item.image }} style={[styles.image, { aspectRatio: item.aspectRatio }]}/>
+      <LazyImage
+        shouldLoad={shouldLoad}
+        smallSource={{ uri: item.small }}
+        source={{ uri: item.image }}
+        aspectRatio={item.aspectRatio}
+      />
 
       <View style={styles.description}>
         <Text style={styles.name}>{item.author.name}</Text>
@@ -40,10 +46,6 @@ const styles = StyleSheet.create({
     height: 32,
     borderRadius: 16,
     marginRight: 10,
-  },
-
-  image: {
-    width: '100%',
   },
 
   name: {
