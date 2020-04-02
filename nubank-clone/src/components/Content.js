@@ -19,7 +19,24 @@ const Content = ({ translateY }) => {
   );
 
   const onHandlerStateChange = (event) => {
-
+    if (event.nativeEvent.oldState === State.ACTIVE) {
+      const { translationY } = event.nativeEvent;
+      const offset = translationY >= 100 ? 400 : 0;
+      
+      if (translationY < 0) {
+        translateY.setValue(400 + translationY);
+        translateY.setOffset(0);
+      }
+      
+      Animated.timing(translateY, {
+        toValue: offset,
+        duration: 200,
+        useNativeDriver: true,
+      }).start(() => {
+        translateY.setOffset(offset);
+        translateY.setValue(0);
+      });
+    }
   }
 
   return (
