@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, ScrollView, Text } from 'react-native';
+import { StyleSheet, View, ScrollView, Text, Animated } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
 const TabItem = ({ icon, title }) => (
@@ -9,9 +9,17 @@ const TabItem = ({ icon, title }) => (
   </View>
 );
 
-const Tabs = () => {
+const Tabs = ({ translateY }) => {
   return (
-    <View style={styles.tabs}>
+    <Animated.View style={[
+      styles.tabs,
+      {
+        opacity: translateY.interpolate({
+          inputRange: [0, 300],
+          outputRange: [1, 0],
+        }),
+      },
+    ]}>
       <ScrollView
         horizontal={true}
         showsHorizontalScrollIndicator={false}
@@ -24,7 +32,7 @@ const Tabs = () => {
         <TabItem title="Depositar" icon="account-balance-wallet" />
         <TabItem title="Transferir" icon="local-atm" />
       </ScrollView>
-    </View>
+    </Animated.View>
   );
 }
 

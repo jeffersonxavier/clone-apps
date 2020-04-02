@@ -1,46 +1,79 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Animated } from 'react-native';
+import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import { MaterialIcons } from '@expo/vector-icons';
-import ContentFooter from './ContentFooter';
 import Menu from './Menu';
 
-const Content = () => {
+const Content = ({ translateY }) => {
   const [ showBalance, setShowBalance ] = useState(false);
+
+  const animatedEvent = Animated.event(
+    [
+      {
+        nativeEvent: {
+          translationY: translateY,
+        },
+      },
+    ],
+    { useNativeDriver: true }
+  );
+
+  const onHandlerStateChange = (event) => {
+
+  }
+
   return (
     <View style={styles.card}>
-      <Menu/>
+      <Menu translateY={translateY}/>
 
-      <View style={styles.cardBody}>
-        <View style={styles.header}>
-          <View style={styles.title}>
-            <MaterialIcons name="attach-money" size={25} color="#666" />
-            <Text style={styles.text}>Conta</Text>
-          </View>
-          <MaterialIcons
-            onPress={() => setShowBalance(!showBalance)}
-            name={showBalance ? 'visibility-off' : 'visibility'}
-            size={25}
-            color="#666"
-          />
-        </View>
-        <View style={styles.content}>
-          <Text style={styles.text}>Saldo Disponível</Text>
+      <PanGestureHandler
+        onGestureEvent={animatedEvent}
+        onHandlerStateChange={onHandlerStateChange}
+      >
+        <Animated.View style={[
+          styles.cardBody,
           {
-            showBalance
-            ? <Text style={styles.balance}>R$ 199.588,78</Text>
-            : <View style={styles.hideBalance}/>
-          }
-        </View>
-        <View style={styles.annotation}>
-          <MaterialIcons name="local-atm" size={25} color="#666" />
-          <Text style={styles.annotationText}>
-            Transferência de R$ 86,00 feita para Fulano de Tal hoje.
-          </Text>
-          <MaterialIcons name="keyboard-arrow-right" size={25} color="#666" />
-        </View>
-      </View>
+            transform: [
+              {
+                translateY: translateY.interpolate({
+                  inputRange: [0, 400],
+                  outputRange: [0, 400],
+                  extrapolate: 'clamp',
+                }),
+              },
+            ],
+          },
+        ]}>
+          <View style={styles.header}>
+            <View style={styles.title}>
+              <MaterialIcons name="attach-money" size={25} color="#666" />
+              <Text style={styles.text}>Conta</Text>
+            </View>
+            <MaterialIcons
+              onPress={() => setShowBalance(!showBalance)}
+              name={showBalance ? 'visibility-off' : 'visibility'}
+              size={25}
+              color="#666"
+            />
+          </View>
+          <View style={styles.content}>
+            <Text style={styles.text}>Saldo Disponível</Text>
+            {
+              showBalance
+              ? <Text style={styles.balance}>R$ 199.588,78</Text>
+              : <View style={styles.hideBalance}/>
+            }
+          </View>
+          <View style={styles.annotation}>
+            <MaterialIcons name="local-atm" size={25} color="#666" />
+            <Text style={styles.annotationText}>
+              Transferência de R$ 86,00 feita para Fulano de Tal hoje.
+            </Text>
+            <MaterialIcons name="keyboard-arrow-right" size={25} color="#666" />
+          </View>
+        </Animated.View>
+      </PanGestureHandler>
 
-      {/* <ContentFooter/> */}
     </View>
   );
 }
@@ -58,12 +91,17 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     marginHorizontal: 20,
     height: '100%',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
   },
 
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 30,
+    paddingTop: 30,
+    paddingHorizontal: 30,
   },
 
   title: {

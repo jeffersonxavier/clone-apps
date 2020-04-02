@@ -1,12 +1,18 @@
 import React from 'react';
-import { StyleSheet, ScrollView, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Animated } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import QRCode from 'react-native-qrcode-generator';
 
-const Menu = () => {
+const Menu = ({ translateY }) => {
   return (
-    <ScrollView
+    <Animated.ScrollView
       contentContainerStyle={styles.container}
+      style={{
+        opacity: translateY.interpolate({
+          inputRange: [0, 350],
+          outputRange: [0, 1],
+        }),
+      }}
     >
       <View style={styles.code}>
         <QRCode
@@ -48,7 +54,7 @@ const Menu = () => {
       <TouchableOpacity style={styles.signoutButton} activeOpacity={0.7}>
         <Text style={styles.signoutButtonText}>SAIR DA CONTA</Text>
       </TouchableOpacity>
-    </ScrollView>
+    </Animated.ScrollView>
   );
 }
 
