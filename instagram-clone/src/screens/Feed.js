@@ -1,9 +1,10 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, StyleSheet, Image } from 'react-native'
+import Logo from '../assets/instagram.png'
 
-const Main = () => (
+const Feed = () => (
   <View style={styles.container}>
-    <Text>Main...</Text>
+    <Image source={Logo}/>
   </View>
 );
 
@@ -16,4 +17,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Main;
+export default Feed;
