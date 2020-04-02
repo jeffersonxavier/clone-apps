@@ -1,20 +1,15 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-
-const BottomIcon = ({ checked }) => (
-  <MaterialIcons
-    style={styles.bottomIconItem}
-    name="fiber-manual-record"
-    size={10}
-    color={checked ? '#fff' : 'rgba(255, 255, 255, 0.3)'}
-  />
-)
+import ContentFooter from './ContentFooter';
+import Menu from './Menu';
 
 const Content = () => {
   const [ showBalance, setShowBalance ] = useState(false);
   return (
     <View style={styles.card}>
+      <Menu/>
+
       <View style={styles.cardBody}>
         <View style={styles.header}>
           <View style={styles.title}>
@@ -45,11 +40,7 @@ const Content = () => {
         </View>
       </View>
 
-      <View style={styles.bottomIcons}>
-        <BottomIcon/>
-        <BottomIcon checked/>
-        <BottomIcon/>
-      </View>
+      {/* <ContentFooter/> */}
     </View>
   );
 }
@@ -59,7 +50,6 @@ const styles = StyleSheet.create({
     flex: 1,
     maxHeight: 400,
     marginBottom: 10,
-    justifyContent: 'center',
     zIndex: 5,
   },
 
@@ -117,16 +107,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     fontSize: 13,
   },
-
-  bottomIcons: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    paddingTop: 10,
-  },
-
-  bottomIconItem: {
-    paddingHorizontal: 3,
-  }
 });
 
 export default Content;
